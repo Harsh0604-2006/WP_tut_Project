@@ -1,20 +1,38 @@
 [
   {
+    "cropType": "Wheat",
+    "name": "Wheat Rust",
+    "symptoms": ["Leaf spots (yellow/brown/black)", "Yellowing leaves", "Stunted growth"],
+    "remedy": "Remove heavily infected plants and apply a crop-safe fungicide according to its label."
+  },
+  {
+    "cropType": "Rice",
+    "name": "Rice Blast",
+    "symptoms": ["Leaf spots (yellow/brown/black)", "Discoloration of fruit/grain", "Stunted growth"],
+    "remedy": "Use balanced nitrogen, improve field drainage, and apply a recommended rice blast treatment."
+  },
+  {
+    "cropType": "Cotton",
+    "name": "Cotton Leaf Curl",
+    "symptoms": ["Leaf curling", "Yellowing leaves", "Stunted growth"],
+    "remedy": "Control whiteflies, remove affected growth, and use certified resistant cotton varieties."
+  },
+  {
     "cropType": "Tomato",
     "name": "Early Blight",
-    "symptoms": ["Yellow Leaves", "Brown Spots", "Wilting"],
+    "symptoms": ["Leaf spots (yellow/brown/black)", "Yellowing leaves", "Wilting"],
     "remedy": "Apply a recommended fungicide, remove affected leaves, and improve airflow between plants."
   },
   {
     "cropType": "Potato",
     "name": "Late Blight",
-    "symptoms": ["Brown Spots", "Wilting"],
+    "symptoms": ["Leaf spots (yellow/brown/black)", "Wilting"],
     "remedy": "Apply an appropriate fungicide immediately and remove infected plants."
   },
   {
     "cropType": "Cucumber",
     "name": "Powdery Mildew",
-    "symptoms": ["Powdery Coating", "Yellow Leaves"],
+    "symptoms": ["White/gray powdery coating", "Yellowing leaves"],
     "remedy": "Remove heavily affected leaves and apply a suitable mildew treatment."
   }
 ]

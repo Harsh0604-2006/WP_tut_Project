@@ -12,11 +12,14 @@ export async function connectDatabase() {
   await mongoose.connect(uri);
   console.log("Connected to MongoDB");
 
-  const diseaseCount = await Disease.countDocuments();
-  if (diseaseCount === 0) {
-    await Disease.insertMany(seedDiseases);
-    console.log(`Seeded ${seedDiseases.length} diseases`);
-  }
+  await Disease.bulkWrite(seedDiseases.map((disease) => ({
+    updateOne: {
+      filter: { cropType: disease.cropType, name: disease.name },
+      update: { $set: disease },
+      upsert: true,
+    },
+  })));
+  console.log(`Synced ${seedDiseases.length} diseases`);
 
   return true;
 }
