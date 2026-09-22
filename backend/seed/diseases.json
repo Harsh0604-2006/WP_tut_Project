@@ -1,0 +1,20 @@
+[
+  {
+    "cropType": "Tomato",
+    "name": "Early Blight",
+    "symptoms": ["Yellow Leaves", "Brown Spots", "Wilting"],
+    "remedy": "Apply a recommended fungicide, remove affected leaves, and improve airflow between plants."
+  },
+  {
+    "cropType": "Potato",
+    "name": "Late Blight",
+    "symptoms": ["Brown Spots", "Wilting"],
+    "remedy": "Apply an appropriate fungicide immediately and remove infected plants."
+  },
+  {
+    "cropType": "Cucumber",
+    "name": "Powdery Mildew",
+    "symptoms": ["Powdery Coating", "Yellow Leaves"],
+    "remedy": "Remove heavily affected leaves and apply a suitable mildew treatment."
+  }
+]
