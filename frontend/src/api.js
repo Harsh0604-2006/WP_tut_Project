@@ -10,6 +10,7 @@ api.interceptors.request.use((config) => {
 export const reportsApi = {
   create: (payload) => api.post("/reports", payload).then((response) => response.data),
   list: () => api.get("/reports").then((response) => response.data),
+  diseases: (cropType) => api.get("/reports/diseases", { params: { cropType } }).then((response) => response.data),
   stats: () => api.get("/reports/stats").then((response) => response.data),
 };
 

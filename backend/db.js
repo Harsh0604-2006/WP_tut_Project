@@ -19,6 +19,9 @@ export async function connectDatabase() {
       upsert: true,
     },
   })));
+  await Disease.deleteMany({
+    $nor: seedDiseases.map(({ cropType, name }) => ({ cropType, name })),
+  });
   console.log(`Synced ${seedDiseases.length} diseases`);
 
   return true;
