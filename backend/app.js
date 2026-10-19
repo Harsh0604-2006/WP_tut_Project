@@ -24,5 +24,10 @@ app.use((error, _req, res, next) => {
 });
 
 const port = process.env.PORT || 5000;
-connectDatabase().catch((error) => console.error("Database connection failed:", error.message));
-app.listen(port, () => console.log(`API listening on http://localhost:${port}`));
+if (process.env.NODE_ENV !== "test") {
+  connectDatabase().catch((error) => console.error("Database connection failed:", error.message));
+  app.listen(port, () => console.log(`API listening on http://localhost:${port}`));
+}
+
+export { app };
+export default app;

@@ -4,9 +4,11 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-    "dev": "node --watch app.js"
+    "dev": "node --watch app.js",
+    "test": "node --test tests/**/*.test.js"
   },
   "dependencies": {
+    "@huggingface/inference": "^4.13.32",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",

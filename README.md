@@ -182,6 +182,9 @@ npm run dev
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 PORT=5000
+HF_TOKEN=your_hugging_face_access_token
+HF_MODEL=neghani/plantvillage-mobilenetv2
+CONFIDENCE_THRESHOLD=0.40
 ```
 
 ### Frontend (`frontend/.env`)
@@ -189,6 +192,73 @@ PORT=5000
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
+
+## AI Image-Based Disease Detection
+
+The application supports hosted image-based plant disease classification for **Tomato** and **Potato** using Hugging Face inference.
+
+### 1. Hosted Model & Provider
+- **Model:** `neghani/plantvillage-mobilenetv2`
+- **Architecture:** MobileNetV2 fine-tuned on the PlantVillage dataset
+- **Task:** `image-classification`
+- **Hosted Provider:** Hugging Face Serverless Inference Router (`hf-inference`)
+- **Status:** Warm and endpoint-compatible on Hugging Face Hub
+
+### 2. Configuring the Hugging Face Token
+1. Create a Hugging Face account at [huggingface.co](https://huggingface.co).
+2. Go to **Settings -> Access Tokens** (`https://huggingface.co/settings/tokens`).
+3. Generate a new token with **Read** access.
+4. Add the token to `backend/.env`:
+   ```env
+   HF_TOKEN=hf_...
+   ```
+   *Note: `backend/.env` is ignored by Git. Never expose or commit this token.*
+
+### 3. API Contract (`POST /api/reports/predict-image`)
+- **Authentication:** Requires `Authorization: Bearer <jwt_token>`
+- **Content-Type:** `multipart/form-data`
+- **Fields:**
+  - `cropType`: `"Tomato"` or `"Potato"`
+  - `image`: Image file (JPEG, PNG, or WebP up to 5 MB)
+
+**Success Response (200 OK):**
+```json
+{
+  "status": "success",
+  "cropType": "Tomato",
+  "modelLabel": "Tomato___Early_blight",
+  "disease": "Early Blight",
+  "confidence": 0.92,
+  "remedy": "Apply a recommended fungicide, remove affected leaves, and improve airflow between plants.",
+  "predictions": [
+    { "disease": "Early Blight", "modelLabel": "Tomato___Early_blight", "confidence": 0.92 },
+    { "disease": "Late Blight", "modelLabel": "Tomato___Late_blight", "confidence": 0.05 }
+  ]
+}
+```
+
+**Uncertain Response (200 OK):**
+```json
+{
+  "status": "uncertain",
+  "message": "The result is uncertain. Try a clearer leaf image.",
+  "confidence": 0.28
+}
+```
+
+### 4. Running Automated Tests
+The backend contains a test suite using Node's native test runner covering all 12 edge cases (validation, timeouts, token absence, uncertain results, unauthenticated access, and symptom flow regression):
+```bash
+cd backend
+npm test
+```
+
+### 5. Privacy Notice
+Uploaded crop leaf photos are securely transmitted to the Hugging Face Inference API for automated classification. Images are not retained on disk for prediction-only queries.
+
+### 6. Known Limitations
+- **Dataset Domain Shift:** `neghani/plantvillage-mobilenetv2` is trained on PlantVillage laboratory leaf images with uniform backgrounds. Wild field photos with cluttered backgrounds, shadows, or multiple leaves may experience lower accuracy or trigger uncertain classifications.
+- **Heuristic Confidence:** Softmax confidence scores are heuristic indicators of model certainty and do not constitute laboratory or agronomic certification.
 
 ## Summary
 

@@ -1,9 +1,18 @@
 import Disease from "../models/Disease.js";
 import Report from "../models/Report.js";
+import { isValidImageBuffer } from "../middleware/uploadMiddleware.js";
+import { predictPlantDisease, PredictionServiceError } from "../services/imagePredictionService.js";
 
 export async function createReport(req, res) {
-  const { cropType, symptoms = [] } = req.body;
-  if (!cropType || !Array.isArray(symptoms) || symptoms.length === 0)
+  const { cropType } = req.body;
+  const rawSymptoms = req.body.symptoms;
+  const symptoms = Array.isArray(rawSymptoms)
+    ? rawSymptoms
+    : typeof rawSymptoms === "string" && rawSymptoms.trim().length > 0
+    ? [rawSymptoms]
+    : [];
+
+  if (!cropType || symptoms.length === 0)
     return res.status(400).json({ message: "Crop type and at least one symptom are required" });
 
   const diseases = await Disease.find({ cropType });
@@ -59,4 +68,32 @@ export async function getDashboardStats(req, res) {
     return counts;
   }, {});
   res.json({ totalReports: reports.length, cropsScanned: new Set(reports.map((report) => report.cropType)).size, diseaseCounts });
+}
+
+export async function predictCropImage(req, res) {
+  const { cropType } = req.body;
+  if (!cropType || (cropType !== "Tomato" && cropType !== "Potato")) {
+    return res.status(400).json({ message: "Invalid crop type. Supported crops are Tomato and Potato." });
+  }
+
+  if (!req.file) {
+    return res.status(400).json({ message: "An image file is required." });
+  }
+
+  if (!isValidImageBuffer(req.file.buffer)) {
+    return res.status(400).json({ message: "Invalid image format. Allowed formats are JPEG, PNG, and WebP." });
+  }
+
+  try {
+    const result = await predictPlantDisease({
+      imageBuffer: req.file.buffer,
+      cropType,
+    });
+    return res.json(result);
+  } catch (err) {
+    if (err instanceof PredictionServiceError) {
+      return res.status(err.statusCode).json({ message: err.message });
+    }
+    return res.status(500).json({ message: "An unexpected error occurred during prediction." });
+  }
 }

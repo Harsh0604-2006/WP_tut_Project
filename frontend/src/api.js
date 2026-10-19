@@ -19,6 +19,12 @@ export const reportsApi = {
   list: () => api.get("/reports").then((response) => response.data),
   diseases: (cropType) => api.get("/reports/diseases", { params: { cropType } }).then((response) => response.data),
   stats: () => api.get("/reports/stats").then((response) => response.data),
+  predictImage: (payload) => {
+    const formData = new FormData();
+    formData.append("cropType", payload.cropType);
+    if (payload.image) formData.append("image", payload.image);
+    return api.post("/reports/predict-image", formData).then((response) => response.data);
+  },
 };
 
 export const assetUrl = (url) => url?.startsWith("http")
