@@ -63,8 +63,8 @@ The frontend app starts at `frontend/src/App.jsx`.
 - In the `ReportForm` page, the user selects a crop type and one or more visible symptoms.
 - The selected data is submitted to:
   - `POST /api/reports`
-- The backend compares the selected symptoms with its disease library and returns the most likely disease match.
-- The frontend displays the matched disease and remedy to the user.
+- The backend compares the selected symptoms with its disease library and returns all matching diseases ranked by symptom overlap.
+- The frontend displays each possible disease and its remedy to the user.
 
 ## Backend flow
 
@@ -107,7 +107,7 @@ Controllers handle request logic:
 - `backend/controllers/reportController.js`
   - validates submitted crop and symptoms
   - queries disease records for the chosen crop
-  - calculates the best disease match by symptom overlap
+  - calculates and ranks disease matches by symptom overlap
   - saves the report in MongoDB
   - returns statistics for the dashboard
 
@@ -132,7 +132,7 @@ The backend uses Mongoose models:
 
 - `User`: stores name, email, and password
 - `Disease`: stores crop name, disease name, matching symptoms, and remedy
-- `Report`: stores crop type, symptoms, matched disease, remedy, date, and linked user
+- `Report`: stores crop type, symptoms, the primary matched disease, all ranked disease matches and remedies, date, and linked user
 
 ## Full end-to-end workflow
 
@@ -148,9 +148,10 @@ Here is the complete flow of the application:
 8. The frontend sends the data to `POST /api/reports`.
 9. The backend finds disease records matching that crop.
 10. It compares the selected symptoms with disease symptom lists.
-11. The disease with the highest match score is selected.
-12. The report is saved to MongoDB with the matched disease and remedy.
-13. The frontend displays the result and the user can view report history.
+11. All diseases with at least one matching symptom are ranked by overlap score.
+12. The user can optionally attach a JPG, PNG, or WebP crop image up to 5 MB.
+13. The report is saved to MongoDB with the primary match plus every matching disease, remedy, symptom-overlap score, relative match probability, and attached image URL.
+14. The frontend displays each result's relative match probability and attached image, and the user can view them again in report history.
 14. The dashboard loads aggregated statistics from saved reports.
 
 ## Setup and run locally
@@ -199,4 +200,4 @@ This application follows a classic full-stack architecture:
 - Authentication: JWT protects private routes
 - Diagnosis flow: symptom matching against a seeded disease dataset
 
-This makes the app easy to extend with more crop types, disease entries, a richer dashboard, or a more advanced prediction model later.
+The displayed probability is a relative ranking calculated from symptom overlap across the matching diseases; it is not a clinical or laboratory-confirmed diagnosis. This makes the app easy to extend with more crop types, disease entries, a richer dashboard, or a more advanced prediction model later.

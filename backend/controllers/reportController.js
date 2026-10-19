@@ -3,19 +3,34 @@ import Report from "../models/Report.js";
 
 export async function createReport(req, res) {
   const { cropType, symptoms = [] } = req.body;
-  if (!cropType || symptoms.length === 0) 
+  if (!cropType || !Array.isArray(symptoms) || symptoms.length === 0)
     return res.status(400).json({ message: "Crop type and at least one symptom are required" });
 
   const diseases = await Disease.find({ cropType });
-  const matched = diseases
+  const matches = diseases
     .map((disease) => ({ disease, score: symptoms.filter((symptom) => disease.symptoms.includes(symptom)).length }))
-    .sort((a, b) => b.score - a.score)[0];
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score || a.disease.name.localeCompare(b.disease.name));
 
-  if (!matched?.score) 
+  if (!matches.length)
     return res.status(404).json({ message: "No matching disease found" });
-  const report = 
-  await Report.create(
-    { cropType, symptoms, matchedDisease: matched.disease.name, remedy: matched.disease.remedy, user: req.user?.id });
+
+  const totalScore = matches.reduce((total, { score }) => total + score, 0);
+  const matchedDiseases = matches.map(({ disease, score }) => ({
+    name: disease.name,
+    remedy: disease.remedy,
+    score,
+    probability: Math.round((score / totalScore) * 1000) / 10,
+  }));
+  const report = await Report.create({
+    cropType,
+    symptoms,
+    matchedDisease: matchedDiseases[0].name,
+    matchedDiseases,
+    remedy: matchedDiseases[0].remedy,
+    imageUrl: req.file ? `/uploads/${req.file.filename}` : "",
+    user: req.user?.id,
+  });
   res.status(201).json(report);
 }
 
@@ -35,7 +50,12 @@ export async function getDashboardStats(req, res) {
   const filter = req.user?.id ? { user: req.user.id } : {};
   const reports = await Report.find(filter);
   const diseaseCounts = reports.reduce((counts, report) => {
-    counts[report.matchedDisease] = (counts[report.matchedDisease] || 0) + 1;
+    const diseases = report.matchedDiseases?.length
+      ? report.matchedDiseases.map(({ name }) => name)
+      : [report.matchedDisease];
+    diseases.forEach((name) => {
+      counts[name] = (counts[name] || 0) + 1;
+    });
     return counts;
   }, {});
   res.json({ totalReports: reports.length, cropsScanned: new Set(reports.map((report) => report.cropType)).size, diseaseCounts });

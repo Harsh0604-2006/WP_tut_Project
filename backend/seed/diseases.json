@@ -2,31 +2,31 @@
   {
     "cropType": "Cotton",
     "name": "Cotton Leaf Curl",
-    "symptoms": ["Leaf curling", "Yellowing leaves", "Stunted growth"],
+    "symptoms": ["Leaf curling", "Yellowing leaves", "Stunted growth", "Mosaic pattern on leaves", "Visible insects", "Leaf vein discoloration"],
     "remedy": "Control whiteflies, remove affected growth, and use certified resistant cotton varieties."
   },
   {
     "cropType": "Cotton",
     "name": "Cotton Bacterial Blight",
-    "symptoms": ["Leaf spots (yellow/brown/black)", "Wilting", "Discoloration of fruit/grain"],
+    "symptoms": ["Leaf spots (yellow/brown/black)", "Wilting", "Discoloration of fruit/grain", "Lesions on fruit", "Water-soaked lesions", "Stem cankers"],
     "remedy": "Use certified disease-free seed, remove infected debris, and avoid overhead irrigation."
   },
   {
     "cropType": "Cotton",
     "name": "Cotton Root Rot",
-    "symptoms": ["Wilting", "Yellowing leaves", "Stunted growth"],
+    "symptoms": ["Wilting", "Yellowing leaves", "Stunted growth", "Soft or mushy roots", "Brown leaf edges", "Premature leaf fall"],
     "remedy": "Remove severely affected plants, improve soil drainage, and avoid planting cotton in infested soil."
   },
   {
     "cropType": "Cotton",
     "name": "Cotton Alternaria Leaf Spot",
-    "symptoms": ["Leaf spots (yellow/brown/black)", "Yellowing leaves"],
+    "symptoms": ["Leaf spots (yellow/brown/black)", "Yellowing leaves", "Leaf drop", "Brown leaf edges", "Premature leaf fall"],
     "remedy": "Remove infected leaves, maintain balanced crop nutrition, and apply a recommended fungicide."
   },
   {
     "cropType": "Cotton",
     "name": "Cotton Fusarium Wilt",
-    "symptoms": ["Wilting", "Yellowing leaves", "Stunted growth"],
+    "symptoms": ["Wilting", "Yellowing leaves", "Stunted growth", "Leaf drop", "Brown leaf edges", "Leaf vein discoloration"],
     "remedy": "Use resistant varieties, remove infected plants, and practice crop rotation."
   },
   {
@@ -62,61 +62,61 @@
   {
     "cropType": "Potato",
     "name": "Late Blight",
-    "symptoms": ["Leaf spots (yellow/brown/black)", "Wilting"],
+    "symptoms": ["Leaf spots (yellow/brown/black)", "Wilting", "Lesions on fruit", "Water-soaked lesions", "Fruit cracking"],
     "remedy": "Apply an appropriate fungicide immediately and remove infected plants."
   },
   {
     "cropType": "Potato",
     "name": "Potato Early Blight",
-    "symptoms": ["Leaf spots (yellow/brown/black)", "Yellowing leaves", "Stunted growth"],
+    "symptoms": ["Leaf spots (yellow/brown/black)", "Yellowing leaves", "Stunted growth", "Leaf drop", "Brown leaf edges", "Poor fruit set"],
     "remedy": "Remove affected leaves, rotate crops, and apply a potato-safe fungicide according to its label."
   },
   {
     "cropType": "Potato",
     "name": "Potato Blackleg",
-    "symptoms": ["Wilting", "Yellowing leaves", "Rotting stem/root"],
+    "symptoms": ["Wilting", "Yellowing leaves", "Rotting stem/root", "Soft or mushy roots", "Stem cankers", "Water-soaked lesions"],
     "remedy": "Remove infected plants and tubers, improve drainage, and plant certified disease-free seed."
   },
   {
     "cropType": "Potato",
     "name": "Potato Common Scab",
-    "symptoms": ["Discoloration of fruit/grain", "Stunted growth"],
+    "symptoms": ["Discoloration of fruit/grain", "Stunted growth", "Lesions on fruit", "Fruit cracking", "Poor fruit set"],
     "remedy": "Maintain consistent soil moisture and use certified seed potatoes from healthy stock."
   },
   {
     "cropType": "Potato",
     "name": "Potato Virus Disease",
-    "symptoms": ["Leaf curling", "Yellowing leaves", "Stunted growth"],
+    "symptoms": ["Leaf curling", "Yellowing leaves", "Stunted growth", "Mosaic pattern on leaves", "Visible insects", "Leaf vein discoloration"],
     "remedy": "Control aphids, remove infected plants, and use certified virus-free seed potatoes."
   },
   {
     "cropType": "Cucumber",
     "name": "Powdery Mildew",
-    "symptoms": ["White/gray powdery coating", "Yellowing leaves"],
+    "symptoms": ["White/gray powdery coating", "Yellowing leaves", "Leaf drop", "Brown leaf edges", "Premature leaf fall"],
     "remedy": "Remove heavily affected leaves and apply a suitable mildew treatment."
   },
   {
     "cropType": "Cucumber",
     "name": "Cucumber Downy Mildew",
-    "symptoms": ["Leaf spots (yellow/brown/black)", "Yellowing leaves", "Wilting"],
+    "symptoms": ["Leaf spots (yellow/brown/black)", "Yellowing leaves", "Wilting", "Leaf drop", "Water-soaked lesions", "Poor fruit set"],
     "remedy": "Improve airflow, avoid overhead watering, and apply a recommended downy mildew treatment."
   },
   {
     "cropType": "Cucumber",
     "name": "Cucumber Angular Leaf Spot",
-    "symptoms": ["Leaf spots (yellow/brown/black)", "Wilting"],
+    "symptoms": ["Leaf spots (yellow/brown/black)", "Wilting", "Lesions on fruit", "Water-soaked lesions", "Stem cankers"],
     "remedy": "Use disease-free seed, avoid working with wet plants, and remove infected leaves."
   },
   {
     "cropType": "Cucumber",
     "name": "Cucumber Anthracnose",
-    "symptoms": ["Leaf spots (yellow/brown/black)", "Discoloration of fruit/grain", "Wilting"],
+    "symptoms": ["Leaf spots (yellow/brown/black)", "Discoloration of fruit/grain", "Wilting", "Lesions on fruit", "Fruit cracking", "Poor fruit set"],
     "remedy": "Remove infected plant material, improve airflow, and apply a recommended fungicide."
   },
   {
     "cropType": "Cucumber",
     "name": "Cucumber Mosaic Virus",
-    "symptoms": ["Leaf curling", "Yellowing leaves", "Stunted growth"],
+    "symptoms": ["Leaf curling", "Yellowing leaves", "Stunted growth", "Mosaic pattern on leaves", "Visible insects", "Leaf vein discoloration"],
     "remedy": "Control aphids, remove infected plants, and disinfect tools between plants."
   }
 ]
